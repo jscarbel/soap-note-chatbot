@@ -7,6 +7,9 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noErrorTruncation": true,
     "incremental": true,
     "jsx": "preserve",
     "module": "esnext",
@@ -17,10 +20,7 @@
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"] // Keep path aliases if needed
-    }
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
