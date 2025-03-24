@@ -6,12 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:prettier:fix": "prettier --config=.prettierrc --write './{app,models,public,services,test,types,utils}/**/*.{js,ts,tsx,css,json}' --plugin prettier-plugin-organize-imports --plugin prettier-plugin-tailwindcss",
+    "lint:prettier": "prettier --config=.prettierrc --check './{app,models,public,services,test,types,utils}/**/*.{js,ts,tsx,css,json}' --plugin prettier-plugin-organize-imports --plugin prettier-plugin-tailwindcss",
+    "depcheck": "depcruise --config .dependency-cruiser.js app models public services utils"
   },
   "dependencies": {
     "next": "15.1.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -19,9 +23,13 @@
     "@types/node": "^20.17.19",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19",
+    "dependency-cruiser": "^16.10.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
