@@ -1,7 +1,7 @@
 import { Chat } from '../../models/chat-model';
 
 export const getChat = async (): Promise<Chat> => {
-  const response = await fetch('/api/chat', {
+  const response = await fetch('/api/chats', {
     method: 'GET',
   });
 
@@ -10,7 +10,7 @@ export const getChat = async (): Promise<Chat> => {
 };
 
 export const postChat = async (body: unknown) => {
-  const response = await fetch('/api/chat', {
+  const response = await fetch('/api/chats', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
