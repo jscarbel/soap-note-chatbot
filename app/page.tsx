@@ -27,7 +27,7 @@ const Bubble = ({
 
 export default function Home() {
   return (
-    <div className="flex justify-center align-start flex-wrap py-20 h-[200px] sm:h-[300px] md:h-[430px] lg:h-[524px] bg-gray-200 w-full overflow-hidden relative">
+    <div className="flex flex-col justify-center align-start flex-wrap py-20 h-[200px] sm:h-[300px] md:h-[430px] lg:h-[524px] bg-hero-200 text-customFont-200 w-full overflow-hidden relative">
       <Bubble
         color={colorOptions.teal}
         size={30}
@@ -38,11 +38,14 @@ export default function Home() {
         size={25}
         className="top-[-70] right-[80]"
       />
-      <div className="container mx-auto px-6 z-[2]">
-        <h1 className="text-4xl w-full text-center ">SOAP - E</h1>
-        <h2 className="w-full text-center ">
-          Making documentation easy one note at a time
+      <div className="flex flex-col items-center z-[2]">
+        <h1 className="text-6xl font-extrabold text-center mt-4">SOAP - E</h1>
+        <h2 className="text-2xl text-center font-bold mt-4">
+          Making documentation easy, one note at a time
         </h2>
+        <button className="bg-buttonBackground rounded-full text-hero py-2 px-8 mt-6">
+          Sign up
+        </button>
       </div>
     </div>
   );
