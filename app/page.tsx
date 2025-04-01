@@ -38,6 +38,24 @@ export default function Home() {
         size={25}
         className="top-[-70] right-[80]"
       />
+
+      {/* Bubbles at the bottom-left */}
+      <Bubble
+        color={colorOptions.purple}
+        size={25}
+        className="bottom-[200] left-[10]"
+      />
+      <Bubble
+        color={colorOptions.teal}
+        size={25}
+        className="bottom-[-50] left-[-40]"
+      />
+      <Bubble
+        color={colorOptions.yellow}
+        size={25}
+        className="bottom-[-150] left-[150]"
+      />
+
       <div className="flex flex-col items-center z-[2]">
         <h1 className="text-6xl font-extrabold text-center mt-4">SOAP - E</h1>
         <h2 className="text-2xl text-center font-bold mt-4">
