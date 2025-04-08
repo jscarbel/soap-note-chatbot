@@ -6,7 +6,7 @@ import { useState } from 'react';
 const publicNav = [
   {
     key: 'logo',
-    href: '/favicon.ico',
+    href: '/images/SoapNotesLg.png',
     label: 'logo',
   },
 
@@ -70,11 +70,16 @@ export default function Nav() {
     <nav className="bg-navBackground-800 p-8 text-customFont w-full top-0 left-0 z-50">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         {/* Left Side: Logo or Avatar */}
-        <div className="justify-start flex items-center space-x-4">
+        <div className="flex justify-start items-center space-x-4">
           {navMenuShow[0].key === 'avatar' ? (
             <div className={navMenuShow[0].iconClass}>
               {navMenuShow[0].label}
             </div>
+          ) : navMenuShow[0].key === 'logo' ? (
+            // Render the favicon image when it's the logo
+            <Link href={navMenuShow[0].href || '/'}>
+              <img src={navMenuShow[0].href} alt="Logo" className="w-8 h-8" />
+            </Link>
           ) : (
             <Link href={navMenuShow[0].href || '/'}>
               <span className="text-2xl font-bold">{navMenuShow[0].label}</span>
@@ -85,7 +90,7 @@ export default function Nav() {
         {/* Right Side: Menu Items */}
         <ul className="flex space-x-6">
           {navMenuShow.map((item) => {
-            if (item.key === 'avatar') {
+            if (item.key === 'avatar' || item.key === 'logo') {
               // Skip rendering avatar as a link
               return null;
             }
