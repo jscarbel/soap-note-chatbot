@@ -1,4 +1,4 @@
-'use Client';
+'use client';
 
 import Link from 'next/link';
 import { useState } from 'react';
@@ -70,15 +70,14 @@ export default function Nav() {
     <nav className="bg-navBackground-800 p-8 text-customFont w-full top-0 left-0 z-50">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         {/* Left Side: Logo or Avatar */}
-        <div className="flex items-center space-x-4">
+        <div className="justify-start flex items-center space-x-4">
           {navMenuShow[0].key === 'avatar' ? (
             <div className={navMenuShow[0].iconClass}>
               {navMenuShow[0].label}
             </div>
           ) : (
             <Link href={navMenuShow[0].href || '/'}>
-              {' '}
-              <a className="text-2xl font-bold">{navMenuShow[0].label}</a>
+              <span className="text-2xl font-bold">{navMenuShow[0].label}</span>
             </Link>
           )}
         </div>
