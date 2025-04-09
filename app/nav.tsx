@@ -67,7 +67,7 @@ export default function Nav() {
   const navMenuShow = isLoggedIn ? authenticatedNav : publicNav;
 
   return (
-    <nav className="bg-navBackground-800 p-8 text-customFont w-full top-0 left-0 z-50">
+    <nav className="bg-navBackground-800 border-b border-navBorder-300 p-6 text-customFont w-full top-0 left-0 z-50">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         {/* Left Side: Logo or Avatar */}
         <div className="flex justify-start items-center space-x-4">
@@ -78,7 +78,7 @@ export default function Nav() {
           ) : navMenuShow[0].key === 'logo' ? (
             // Render the favicon image when it's the logo
             <Link href={navMenuShow[0].href || '/'}>
-              <img src={navMenuShow[0].href} alt="Logo" className="w-8 h-8" />
+              <img src={navMenuShow[0].href} alt="Logo" className="w-12 h-12" />
             </Link>
           ) : (
             <Link href={navMenuShow[0].href || '/'}>
