@@ -89,28 +89,30 @@ export default function Nav() {
 
         {/* Right Side: Menu Items */}
         <ul className="flex space-x-6">
-          {navMenuShow.map((item) => {
-            if (item.key === 'avatar' || item.key === 'logo') {
-              // Skip rendering avatar as a link
-              return null;
-            }
+  {navMenuShow.map((item) => {
+    if (item.key === 'avatar' || item.key === 'logo') {
+      return null;
+    }
 
-            return (
-              <li key={item.key}>
-                {item.key === 'Login' || item.key === 'Logout' ? (
-                  <button
-                    onClick={handleLoginLogout}
-                    className={`${item.iconClass} hover:bg-blue-600`}
-                  >
-                    {item.label}
-                  </button>
-                ) : (
-                  <span className="hover:text-gray-400">{item.label}</span> // Just text for now
-                )}
-              </li>
-            );
-          })}
-        </ul>
+    return (
+      <li key={item.key}>
+        {item.key === 'Login' || item.key === 'Logout' ? (
+          <button
+            onClick={handleLoginLogout}
+            className={`${item.iconClass} hover:bg-blue-600`}
+          >
+            {item.label}
+          </button>
+        ) : (
+          <Link href={item.href || '#'}>
+            <span className="hover:text-gray-400 cursor-pointer">{item.label}</span>
+          </Link>
+        )}
+      </li>
+    );
+  })}
+</ul>
+
       </div>
     </nav>
   );

@@ -1,6 +1,6 @@
-import Nav from './nav';
+import Nav from '../nav';
 
-export default function about() {
+export default function AboutPage() {
   return (
     <div>
       <Nav />
