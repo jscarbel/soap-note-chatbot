@@ -3,11 +3,31 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-const publicNav = [
+type NavItem =
+  | {
+      key: 'logo';
+      href: string;
+      label: string;
+      imgSrc: string;
+    }
+  | {
+      key: 'avatar';
+      label: string;
+      iconClass: string;
+    }
+  | {
+      key: string;
+      href: string;
+      label: string;
+      iconClass?: string;
+    };
+
+const publicNav: NavItem[] = [
   {
     key: 'logo',
-    href: '/images/SoapNotesLg.png',
+    href: '/',
     label: 'logo',
+    imgSrc: '/images/SoapNotesLg.png',
   },
 
   {
@@ -31,7 +51,7 @@ const publicNav = [
 ];
 
 //update with dynamic user data someday
-const authenticatedNav = [
+const authenticatedNav: NavItem[] = [
   {
     key: 'avatar',
     label: 'J',
@@ -72,23 +92,29 @@ export default function Nav() {
         {/* Left Side: Logo or Avatar */}
         <div className="flex justify-start items-center space-x-4">
           {navMenuShow[0].key === 'avatar' ? (
-            <div className={navMenuShow[0].iconClass}>
-              {navMenuShow[0].label}
-            </div>
-          ) : navMenuShow[0].key === 'logo' ? (
-            // Render the favicon image when it's the logo
-            <Link href={navMenuShow[0].href || '/'}>
-              <img src={navMenuShow[0].href} alt="Logo" className="w-12 h-12" />
-            </Link>
-          ) : (
-            <Link href={navMenuShow[0].href || '/'}>
-              <span className="text-2xl font-bold">{navMenuShow[0].label}</span>
-            </Link>
-          )}
+  <div className={navMenuShow[0].iconClass}>
+    {navMenuShow[0].label}
+  </div>
+) : navMenuShow[0].key === 'logo' ? (
+  <Link href={navMenuShow[0].href}>
+    <img
+      src={navMenuShow[0].imgSrc}
+      alt="Logo"
+      className="w-12 h-12"
+    />
+  </Link>
+) : (
+  <Link href={navMenuShow[0].href}>
+    <span className="text-2xl font-bold">
+      {navMenuShow[0].label}
+    </span>
+  </Link>
+)}
+
         </div>
 
         {/* Right Side: Menu Items */}
-        <ul className="flex space-x-6">
+       <ul className="flex space-x-6">
   {navMenuShow.map((item) => {
     if (item.key === 'avatar' || item.key === 'logo') {
       return null;
@@ -104,14 +130,17 @@ export default function Nav() {
             {item.label}
           </button>
         ) : (
-          <Link href={item.href || '#'}>
-            <span className="hover:text-gray-400 cursor-pointer">{item.label}</span>
-          </Link>
+          'href' in item && (
+            <Link href={item.href}>
+              <span className="hover:text-gray-400 cursor-pointer">{item.label}</span>
+            </Link>
+          )
         )}
       </li>
     );
   })}
 </ul>
+
 
       </div>
     </nav>

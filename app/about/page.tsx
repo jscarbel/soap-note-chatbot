@@ -10,7 +10,7 @@ export default function AboutPage() {
       About Us
     </h1>
     <p className="text-lg md:text-xl text-cuustomFont-600 max-w-2xl mx-auto">
-      Learn more about our mission to make notes SOAP notes easier, and work stay at work
+      Learn more about our mission to make SOAP notes easier, and help work stay at work
     </p>
   </div>
 </section>
