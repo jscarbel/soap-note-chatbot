@@ -63,7 +63,6 @@ export default function Nav() {
 
   const navMenuShow = isLoggedIn ? authenticatedNav : publicNav;
 
-  // Helper function to render the left side item
   const renderLeftItem = (
     item: typeof navMenuShow[number]
   ) => {
@@ -87,7 +86,6 @@ export default function Nav() {
     }
   };
 
-  // Helper function to render menu items
   const renderMenuItem = (
     item: typeof navMenuShow[number]
   ) => {
@@ -123,6 +121,7 @@ export default function Nav() {
   return (
     <nav className="bg-navBackground-800 border-b border-navBorder-300 p-6 text-customFont w-full top-0 left-0 z-50">
       <div className="flex justify-between items-center max-w-8xl mx-auto">
+        
         {/* Left Side: Logo or Avatar */}
         <div className="flex justify-start items-center space-x-4">
           {renderLeftItem(navMenuShow[0])}
