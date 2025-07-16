@@ -63,18 +63,14 @@ export default function Nav() {
 
   const navMenuShow = isLoggedIn ? authenticatedNav : publicNav;
 
-  const renderLeftItem = (
-    item: typeof navMenuShow[number]
-  ) => {
+  const renderLeftItem = (item: (typeof navMenuShow)[number]) => {
     switch (item.key) {
       case 'avatar':
-        return (
-          <div className={item.iconClass}>{item.label}</div>
-        );
+        return <div className={item.iconClass}>{item.label}</div>;
       case 'logo':
         return (
           <Link href={item.href!}>
-            <img src={item.imgSrc} alt="Logo" className="w-12 h-12" />
+            <img src={item.imgSrc} alt="Logo" className="h-12 w-12" />
           </Link>
         );
       default:
@@ -86,9 +82,7 @@ export default function Nav() {
     }
   };
 
-  const renderMenuItem = (
-    item: typeof navMenuShow[number]
-  ) => {
+  const renderMenuItem = (item: (typeof navMenuShow)[number]) => {
     if (item.key === 'avatar' || item.key === 'logo') {
       return null;
     }
@@ -108,7 +102,7 @@ export default function Nav() {
         if ('href' in item) {
           return (
             <Link href={item.href!}>
-              <span className="hover:text-gray-400 cursor-pointer">
+              <span className="cursor-pointer hover:text-gray-400">
                 {item.label}
               </span>
             </Link>
@@ -119,11 +113,10 @@ export default function Nav() {
   };
 
   return (
-    <nav className="bg-navBackground-800 border-b border-navBorder-300 p-6 text-customFont w-full top-0 left-0 z-50">
-      <div className="flex justify-between items-center max-w-8xl mx-auto">
-        
+    <nav className="bg-navBackground-800 border-navBorder-300 left-0 top-0 z-50 w-full border-b p-6 text-customFont">
+      <div className="max-w-8xl mx-auto flex items-center justify-between">
         {/* Left Side: Logo or Avatar */}
-        <div className="flex justify-start items-center space-x-4">
+        <div className="flex items-center justify-start space-x-4">
           {renderLeftItem(navMenuShow[0])}
         </div>
 

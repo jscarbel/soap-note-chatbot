@@ -31,16 +31,16 @@ export default function Home() {
   return (
     <div>
       <Nav />
-      <div className="flex flex-col justify-center align-start flex-wrap py-20 h-[200px] sm:h-[300px] md:h-[430px] lg:h-[524px] bg-hero-200 text-customFont-200 w-full overflow-hidden relative">
+      <div className="align-start bg-hero-200 text-customFont-200 relative flex h-[200px] w-full flex-col flex-wrap justify-center overflow-hidden py-20 sm:h-[300px] md:h-[430px] lg:h-[524px]">
         <Bubble
           color={colorOptions.teal}
           size={30}
-          className="top-0 right-[-30]"
+          className="right-[-30] top-0"
         />
         <Bubble
           color={colorOptions.purple}
           size={25}
-          className="top-[-70] right-[80]"
+          className="right-[80] top-[-70]"
         />
 
         {/* Bubbles at the bottom-left */}
@@ -60,12 +60,12 @@ export default function Home() {
           className="bottom-[-150] left-[150]"
         />
 
-        <div className="flex flex-col items-center z-[2]">
-          <h1 className="text-6xl font-extrabold text-center mt-4">SOAP - E</h1>
-          <h2 className="text-2xl text-center font-bold mt-4">
+        <div className="z-[2] flex flex-col items-center">
+          <h1 className="mt-4 text-center text-6xl font-extrabold">SOAP - E</h1>
+          <h2 className="mt-4 text-center text-2xl font-bold">
             Making documentation easy, one note at a time
           </h2>
-          <button className="bg-buttonBackground rounded-full text-hero py-2 px-8 mt-6">
+          <button className="mt-6 rounded-full bg-buttonBackground px-8 py-2 text-hero">
             Sign up
           </button>
         </div>

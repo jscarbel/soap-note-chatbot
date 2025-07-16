@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noUnusedParameters": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "alwaysStrict": true,
     "noErrorTruncation": true,
     "incremental": true,
     "jsx": "preserve",
@@ -31,9 +29,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "knexfile.js",
+    "db/db.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
