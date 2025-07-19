@@ -2,77 +2,53 @@ type Constructable<T = {}, TArgs extends ReadonlyArray<unknown> = []> = new (
   ...args: TArgs
 ) => T;
 
-type Factory<T = {}> = () => T;
-
 /**
- * **Class Resolver** - Returns a constructor that automatically switches between production
- * and test class implementations based on environment variables.
+ * **Type-Safe Class Resolver** - Returns a constructor that automatically switches between
+ * production and test class implementations based on environment variables.
  *
- * This utility function helps you write cleaner code by automatically choosing which class
- * constructor to return based on your current environment (development, test, production, etc.).
- * It's particularly useful for dependency injection and testing scenarios.
+ * This utility function maintains complete type safety by using generics instead of `any`.
+ * The returned constructor preserves all type information from the original classes.
  *
- * The returned constructor can be instantiated normally with `new`, and it will create
- * an instance of the appropriate class based on the environment.
+ * @template T - The interface or base type that both classes implement
+ * @template TArgs - The constructor argument types (as a readonly tuple)
+ *
+ * @param prodClass - Constructor for production environment
+ * @param testClass - Constructor for test/development environment
+ * @returns Constructor that creates instances based on environment
  *
  * @example
  * ```typescript
- * // Define your resolver for parameterless constructors
+ * // For services with no constructor arguments
  * const UserService = classResolver<IUserService>(
  *   ProdUserService,
  *   MockUserService,
  * );
  *
- * // Later, instantiate it
- * const userService = new UserService();
+ * // For services with constructor arguments
+ * const DynamoDbService = classResolver<
+ *   IDynamoDbService<User>,
+ *   [DynamoDbTableName, DynamoDbKeySchema, ZodType<User>]
+ * >(
+ *   ProdDynamoDbService,
+ *   MockDynamoDBService,
+ * );
  * ```
  */
-export function classResolver<
-  T = {},
-  TArgs extends ReadonlyArray<unknown> = [],
->(
+export function classResolver<T, TArgs extends ReadonlyArray<unknown> = []>(
   prodClass: Constructable<T, TArgs>,
   testClass: Constructable<T, TArgs>,
-): Constructable<T, TArgs>;
-
-/**
- * **Factory Resolver** - Returns a factory function that automatically switches between production
- * and test implementations based on environment variables.
- *
- * Use this overload when your classes require constructor parameters.
- *
- * @example
- * ```typescript
- * // Define your resolver for parameterized constructors
- * const createDynamoDbService = classResolver<IDynamoDbService>(
- *   (...args) => new ProdDynamoDbService(...args),
- *   (...args) => new MockDynamoDBService(...args),
- * );
- *
- * // Later, create an instance with parameters
- * const service = createDynamoDbService('prod-users', keySchema, schema);
- * ```
- */
-export function classResolver<T = {}>(
-  prodFactory: Factory<T>,
-  testFactory: Factory<T>,
-): Factory<T>;
-
-export function classResolver<T = {}>(
-  prodImplementation: Constructable<T> | Factory<T>,
-  testImplementation: Constructable<T> | Factory<T>,
-): Constructable<T> | Factory<T> {
+): Constructable<T, TArgs> {
   const classResolverOverride = process.env.CLASS_RESOLVER_OVERRIDE;
   const nodeEnv = process.env.NODE_ENV;
 
   if (classResolverOverride !== undefined) {
     switch (classResolverOverride.toLowerCase()) {
       case 'test': {
-        return testImplementation;
+        return testClass;
       }
       case 'prod':
       case 'production':
-        return prodImplementation;
+        return prodClass;
       default:
         console.warn(
           `Unknown CLASS_RESOLVER_OVERRIDE value: ${classResolverOverride}. ` +
@@ -86,23 +62,23 @@ export function classResolver<T = {}>(
       case 'prod':
       case 'production':
       case 'staging':
-        return prodImplementation;
+        return prodClass;
       case 'dev':
       case 'development':
       case 'test':
-        return testImplementation;
+        return testClass;
       default: {
         console.warn(
-          `Unknown NODE_ENV value: ${nodeEnv}. Returning production implementation`,
+          `Unknown NODE_ENV value: ${nodeEnv}. Returning production class`,
         );
-        return prodImplementation;
+        return prodClass;
       }
     }
   }
 
   console.warn(
     'Could not determine NODE_ENV or CLASS_RESOLVER_OVERRIDE. ' +
-      'Defaulting to production service implementation.',
+      'Defaulting to production service class.',
   );
-  return prodImplementation;
+  return prodClass;
 }
