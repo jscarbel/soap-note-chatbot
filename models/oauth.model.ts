@@ -45,6 +45,8 @@ export type Oauth = {
    * login with them
    */
   refreshToken?: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const Oauth = {
@@ -55,6 +57,8 @@ export const Oauth = {
     userId: UserId.schema,
     email: Email.schema,
     refreshToken: z.string().optional(),
+    createdAt: z.iso.datetime().optional().default(new Date().toISOString()),
+    updatedAt: z.iso.datetime().optional().default(new Date().toISOString()),
   }),
   parse: (x: unknown): Oauth => Oauth.schema.parse(x),
 } as const satisfies SchemaReturnType<Oauth>;

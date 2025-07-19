@@ -63,6 +63,8 @@ export type User = {
   id: UserId;
   email: Email;
   name: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const User = {
@@ -70,6 +72,8 @@ export const User = {
     id: UserId.schema,
     email: Email.schema,
     name: z.string(),
+    createdAt: z.iso.datetime().optional().default(new Date().toISOString()),
+    updatedAt: z.iso.datetime().optional().default(new Date().toISOString()),
   }),
   parse: (x: unknown): User => User.schema.parse(x),
 } as const satisfies SchemaReturnType<User>;
