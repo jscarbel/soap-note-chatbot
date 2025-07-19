@@ -5,7 +5,7 @@ import { IUserService } from './IUser.service';
 
 export class ProdUserService implements IUserService {
   /** @inheritdoc */
-  getUserByEmail(email: Email): Promise<User> {
+  getUserByEmail(_email: Email): Promise<User> {
     throw new NotImplementedError();
   }
 }
