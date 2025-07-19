@@ -53,11 +53,6 @@ export interface IUserService {
   }>;
 
   /**
-   * Search users by name (partial match)
-   */
-  searchUsersByName(nameQuery: string): Promise<User[]>;
-
-  /**
    * Get user count
    */
   getUserCount(): Promise<number>;
