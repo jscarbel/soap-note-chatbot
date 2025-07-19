@@ -6,7 +6,7 @@ export const getChat = async (): Promise<Chat> => {
   });
 
   const text: unknown = await response.json();
-  return Chat.schema.parse(text);
+  return Chat.parse(text);
 };
 
 export const postChat = async (body: unknown) => {

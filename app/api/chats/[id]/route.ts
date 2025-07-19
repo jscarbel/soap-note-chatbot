@@ -31,7 +31,7 @@ export async function GET(_req: NextRequest, { params }: IdParamProps) {
 export async function PATCH(req: NextRequest, { params }: IdParamProps) {
   try {
     const rawPayload: unknown = await req.json();
-    const chatUpdates: PatchChat = PatchChat.schema.parse(rawPayload);
+    const chatUpdates = PatchChat.parse(rawPayload);
     const id = await IdParamProps.parseNumberId(params);
     console.info(`Updating chat ${id} with argument ${chatUpdates}`);
 
