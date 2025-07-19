@@ -72,8 +72,8 @@ export const User = {
     id: UserId.schema,
     email: Email.schema,
     name: z.string(),
-    createdAt: z.iso.datetime().optional().default(new Date().toISOString()),
-    updatedAt: z.iso.datetime().optional().default(new Date().toISOString()),
+    createdAt: z.iso.datetime(),
+    updatedAt: z.iso.datetime(),
   }),
   parse: (x: unknown): User => User.schema.parse(x),
 } as const satisfies SchemaReturnType<User>;

@@ -37,7 +37,9 @@ export class MockUserService implements IUserService {
     }
   }
 
-  async createUser(userData: Omit<User, 'id'>): Promise<User> {
+  async createUser(
+    userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>,
+  ): Promise<User> {
     try {
       // Check if user already exists with this email
       const existingUser = await this.getUserByEmail(userData.email);
@@ -45,9 +47,12 @@ export class MockUserService implements IUserService {
         throw new ConflictError('A user with this email already exists');
       }
 
+      const now = new Date().toISOString();
       const newUser: User = {
         id: UserId.generate(),
         ...userData,
+        createdAt: now,
+        updatedAt: now,
       };
 
       await this.userDb.putItem(newUser);

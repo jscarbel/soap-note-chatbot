@@ -618,11 +618,25 @@ export class MockDynamoDBService<
       throw new DynamoDbConditionalCheckFailedError('Conditional check failed');
     }
 
+    // Add timestamps if not present
+    const itemWithTimestamps = { ...item } as Record<string, unknown>;
+    const now = new Date().toISOString();
+
+    // Set createdAt if not present
+    if ('createdAt' in itemWithTimestamps && !itemWithTimestamps.createdAt) {
+      itemWithTimestamps.createdAt = now;
+    }
+
+    // Always set updatedAt
+    if ('updatedAt' in itemWithTimestamps) {
+      itemWithTimestamps.updatedAt = now;
+    }
+
     // Validate item against schema
-    this.validateAndParseItem(item);
+    this.validateAndParseItem(itemWithTimestamps);
 
     // Store the item
-    this.storage.set(keyStr, { ...(item as Record<string, unknown>) });
+    this.storage.set(keyStr, { ...itemWithTimestamps });
 
     // Return old item if requested
     if (options?.returnValues === 'ALL_OLD' && existingItem) {
@@ -655,12 +669,23 @@ export class MockDynamoDBService<
       throw new DynamoDbConditionalCheckFailedError('Conditional check failed');
     }
 
-    // Apply update expression
-    const updatedItem = applyUpdateExpression(
-      existingItem,
+    // Automatically add updatedAt timestamp
+    const {
+      updateExpression,
+      expressionAttributeNames,
+      expressionAttributeValues,
+    } = this.addTimestampToUpdateExpression(
       options.updateExpression,
       options.expressionAttributeNames,
       options.expressionAttributeValues,
+    );
+
+    // Apply update expression
+    const updatedItem = applyUpdateExpression(
+      existingItem,
+      updateExpression,
+      expressionAttributeNames,
+      expressionAttributeValues,
     );
 
     // Validate updated item
@@ -677,7 +702,6 @@ export class MockDynamoDBService<
       case 'UPDATED_NEW':
         return validatedItem;
       case 'UPDATED_OLD':
-        // Simplified - return old item
         return this.validateAndParseItem(existingItem);
       default:
         return undefined;
@@ -839,5 +863,45 @@ export class MockDynamoDBService<
 
   async getItemCount(): Promise<number> {
     return this.storage.size;
+  }
+
+  private addTimestampToUpdateExpression(
+    updateExpression: string,
+    expressionAttributeNames?: Record<string, string>,
+    expressionAttributeValues?: Record<string, unknown>,
+  ): {
+    updateExpression: string;
+    expressionAttributeNames: Record<string, string>;
+    expressionAttributeValues: Record<string, unknown>;
+  } {
+    const now = new Date().toISOString();
+    const names = { ...expressionAttributeNames };
+    const values = { ...expressionAttributeValues };
+
+    names['#updatedAt'] = 'updatedAt';
+    values[':updatedAt'] = now;
+
+    if (updateExpression.includes('SET ')) {
+      const updatedExpression = updateExpression.replace(
+        /SET\s+(.+?)(?:\s+(ADD|REMOVE|DELETE)|$)/,
+        (match, setClause, nextOperation) => {
+          const newSetClause = `${setClause.trim()}, #updatedAt = :updatedAt`;
+          return nextOperation
+            ? `SET ${newSetClause} ${nextOperation}`
+            : `SET ${newSetClause}`;
+        },
+      );
+      return {
+        updateExpression: updatedExpression,
+        expressionAttributeNames: names,
+        expressionAttributeValues: values,
+      };
+    } else {
+      return {
+        updateExpression: `SET #updatedAt = :updatedAt ${updateExpression}`,
+        expressionAttributeNames: names,
+        expressionAttributeValues: values,
+      };
+    }
   }
 }
