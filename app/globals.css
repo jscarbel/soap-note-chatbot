@@ -1,6 +1,69 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-background: 'var(--background)';
+  --color-foreground: 'var(--foreground)';
+  /* Gray */
+  --color-soap-white: #ffffff;
+  --color-soap-gray-50: #f8f8f8;
+  --color-soap-gray-100: #f0f0f0;
+  --color-soap-gray-200: #d9d9d9;
+  --color-soap-gray-300: #e3e3e3;
+  --color-soap-gray-400: #a3a3a3;
+  --color-soap-gray-500: #767676;
+  --color-soap-gray-600: #5a5a5a;
+  --color-soap-gray-700: #404040;
+  --color-soap-gray-800: #2a2a2a;
+  --color-soap-gray-900: #171717;
+
+  /* Slate */
+  --color-soap-slate-50: #f8fafc;
+  --color-soap-slate-100: #f1f5f9;
+  --color-soap-slate-200: #e2e8f0;
+  --color-soap-slate-300: #cbd5e1;
+  --color-soap-slate-400: #94a3b8;
+  --color-soap-slate-500: #64748b;
+  --color-soap-slate-600: #475569;
+  --color-soap-slate-700: #334155;
+  --color-soap-slate-800: #1c2b2d;
+  --color-soap-slate-900: #0f172a;
+
+  /* Purple */
+  --color-soap-purple-50: #faf5ff;
+  --color-soap-purple-100: #f3e8ff;
+  --color-soap-purple-200: #e9d5ff;
+  --color-soap-purple-300: #d8b4fe;
+  --color-soap-purple-400: #a78ce3;
+  --color-soap-purple-500: #a855f7;
+  --color-soap-purple-600: #9333ea;
+  --color-soap-purple-700: #7c3aed;
+  --color-soap-purple-800: #6b21a8;
+  --color-soap-purple-900: #581c87;
+
+  /* Cyan/Teal */
+  --color-soap-cyan-50: #ecfeff;
+  --color-soap-cyan-100: #cffafe;
+  --color-soap-cyan-200: #a5f3fc;
+  --color-soap-cyan-300: #8cd9e3;
+  --color-soap-cyan-400: #22d3ee;
+  --color-soap-cyan-500: #06b6d4;
+  --color-soap-cyan-600: #0891b2;
+  --color-soap-cyan-700: #0e7490;
+  --color-soap-cyan-800: #155e75;
+  --color-soap-cyan-900: #164e63;
+
+  /* Yellow */
+  --color-soap-yellow-50: #fefce8;
+  --color-soap-yellow-100: #fef3c7;
+  --color-soap-yellow-200: #fde68a;
+  --color-soap-yellow-300: #e3ca8c;
+  --color-soap-yellow-400: #fbbf24;
+  --color-soap-yellow-500: #f59e0b;
+  --color-soap-yellow-600: #d97706;
+  --color-soap-yellow-700: #b45309;
+  --color-soap-yellow-800: #92400e;
+  --color-soap-yellow-900: #78350f;
+}
 
 :root {
   --background: #f8f8f8;

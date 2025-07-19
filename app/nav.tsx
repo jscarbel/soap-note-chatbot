@@ -24,7 +24,7 @@ const publicNav = [
     key: 'Login',
     href: '/login',
     label: 'Log in',
-    iconClass: 'bg-navButton rounded-full text-hero py-2 px-4',
+    iconClass: 'bg-soap-gray-800 rounded-full text-soap-gray-50 py-2 px-4',
   },
 ] as const;
 
@@ -50,7 +50,7 @@ const authenticatedNav = [
     href: '/logout',
     label: 'Log out',
     iconClass:
-      'bg-buttonBackground-400 text-customFont py-2 px-4 rounded hover:bg-buttonBackground-600',
+      'bg-soap-slate-100 text-soap-slate-800 py-2 px-4 rounded hover:bg-soap-slate-200',
   },
 ] as const;
 
@@ -113,7 +113,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="bg-navBackground-800 border-navBorder-300 left-0 top-0 z-50 w-full border-b p-6 text-customFont">
+    <nav className="bg-soap-white border-soap-gray-200 left-0 top-0 z-50 w-full border-b p-6 text-soap-slate-800">
       <div className="max-w-8xl mx-auto flex items-center justify-between">
         {/* Left Side: Logo or Avatar */}
         <div className="flex items-center justify-start space-x-4">
