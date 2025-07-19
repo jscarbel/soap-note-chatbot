@@ -1,4 +1,4 @@
-import { Chat } from '../../models/chat-model';
+import { Chat } from '../../models/chat.model';
 
 export const getChat = async (): Promise<Chat> => {
   const response = await fetch('/api/chats', {

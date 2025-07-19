@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { PatchChat } from '../../../../models/chat-model';
+import { PatchChat } from '../../../../models/chat.model';
 import { ensureErrorObject } from '../../../../utils/ensureErrorObject';
 import { IdParamProps } from '../../../../utils/requests';
 

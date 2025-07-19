@@ -1,4 +1,4 @@
-import { Chat } from '../models/chat-model';
+import { Chat } from '../models/chat.model';
 
 export class ChatService {
   private readonly dbClient: ReadonlyArray<string>;
