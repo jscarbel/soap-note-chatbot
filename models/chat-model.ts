@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z, ZodType } from 'zod';
 
 export type Chat = Readonly<{
   context: ReadonlyArray<string>;
@@ -6,20 +6,18 @@ export type Chat = Readonly<{
 }>;
 
 export const Chat = {
-  SCHEMA: z
-    .object({
-      context: z.array(z.string()),
-      message: z.string(),
-    })
-    .transform((x): Chat => x),
-} as const;
+  schema: z.object({
+    context: z.array(z.string()),
+    message: z.string(),
+  }),
+} as const satisfies { schema: ZodType<Chat> };
 
 export type PatchChat = Readonly<{
   message: string;
 }>;
 
 export const PatchChat = {
-  SCHEMA: z.object({
+  schema: z.object({
     message: z.string(),
   }),
-} as const;
+} as const satisfies { schema: ZodType<PatchChat> };
