@@ -4,10 +4,10 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: process.env.DATABASE_HOST ?? 'localhost',
-      user: process.env.DATABASE_USER ?? 'postgres',
-      password: process.env.DATABASE_PASSWORD ?? 'password',
-      database: process.env.DATABASE_NAME ?? 'soape',
+      host: process.env.DATABASE_HOST,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       port: process.env.DATABASE_PORT ? parseInt(process.env.DB_PORT) : 5432,
     },
     migrations: {
@@ -41,9 +41,9 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: process.env.DATABASE_NAME ?? 'soape',
-      user: process.env.DATABASE_USER ?? 'username',
-      password: process.env.DATABASE_PASSWORD ?? 'password',
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       host: process.env.DATABASE_HOST,
       port: process.env.DATABASE_PORT
         ? parseInt(process.env.DATABASE_PORT)
