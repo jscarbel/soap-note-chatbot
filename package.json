@@ -12,9 +12,13 @@
     "depcheck": "depcruise --config .dependency-cruiser.js app models public services utils",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
-    "migrate:make": "knex migrate:make"
+    "migrate:make": "knex migrate:make",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.848.0",
+    "@aws-sdk/lib-dynamodb": "^3.848.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/uuid": "^10.0.0",
     "dotenv": "^17.0.1",
@@ -33,6 +37,7 @@
     "@types/node": "^24.0.15",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
+    "@vitest/coverage-v8": "^3.2.4",
     "dependency-cruiser": "^16.10.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
@@ -42,6 +47,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   }
 }
