@@ -113,7 +113,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="bg-soap-white border-soap-gray-200 left-0 top-0 z-50 w-full border-b p-6 text-soap-slate-800">
+    <nav className="bg-soap-white border-soap-gray-200 text-soap-slate-800 top-0 left-0 z-50 w-full border-b p-6">
       <div className="max-w-8xl mx-auto flex items-center justify-between">
         {/* Left Side: Logo or Avatar */}
         <div className="flex items-center justify-start space-x-4">

@@ -17,21 +17,21 @@ export default function Home() {
     <div>
       <Nav />
       <div className="align-start bg-soap-gray-50 text-soap-slate-800 relative flex h-[200px] w-full flex-col flex-wrap justify-center overflow-hidden py-20 sm:h-[300px] md:h-[430px] lg:h-[524px]">
-        <Bubble size={30} className="right-[-30] top-0 bg-soap-cyan-300" />
-        <Bubble size={25} className="right-[80] top-[-70] bg-soap-purple-400" />
+        <Bubble size={30} className="bg-soap-cyan-300 top-0 right-[-30]" />
+        <Bubble size={25} className="bg-soap-purple-400 top-[-70] right-[80]" />
 
         {/* Bubbles at the bottom-left */}
         <Bubble
           size={25}
-          className="bottom-[200] left-[10] bg-soap-purple-400"
+          className="bg-soap-purple-400 bottom-[200] left-[10]"
         />
         <Bubble
           size={25}
-          className="bottom-[-50] left-[-40] bg-soap-cyan-300"
+          className="bg-soap-cyan-300 bottom-[-50] left-[-40]"
         />
         <Bubble
           size={25}
-          className="bottom-[-150] left-[150] bg-soap-yellow-300"
+          className="bg-soap-yellow-300 bottom-[-150] left-[150]"
         />
 
         <div className="z-[2] flex flex-col items-center">
@@ -39,7 +39,7 @@ export default function Home() {
           <h2 className="mt-4 text-center text-2xl font-bold">
             Making documentation easy, one note at a time
           </h2>
-          <button className="mt-6 rounded-full bg-soap-slate-800 px-8 py-2 text-soap-gray-50 hover:bg-soap-slate-700 pointer">
+          <button className="bg-soap-slate-800 text-soap-gray-50 hover:bg-soap-slate-700 pointer mt-6 rounded-full px-8 py-2">
             Sign up
           </button>
         </div>
