@@ -372,8 +372,8 @@ export interface IDynamoDbScanBuilder<T> {
  * 4. **indexes?**: `DynamoDbIndexConfiguration | undefined` - Optional index definitions:
  *    ```typescript
  *    {
- *      'email-index': [['email', 'string']],           // GSI with partition key only
- *      'status-index': [['status', 'string'], ['createdAt', 'number']]  // GSI with partition + sort key
+ *      'by-email': [['email', 'string']],           // GSI with partition key only
+ *      'by-status': [['status', 'string'], ['createdAt', 'number']]  // GSI with partition + sort key
  *    }
  *    ```
  * 5. **region?**: `DynamoDbRegion` - AWS region (defaults to 'us-east-2')
@@ -382,11 +382,11 @@ export interface IDynamoDbScanBuilder<T> {
  *
  * ```typescript
  * // User table with single partition key
- * const userService = DynamoDbService(
+ * const userService = new DynamoDbService(
  *   'prod-users',
  *   [['userId', 'string']],
  *   UserSchema,
- *   { 'email-index': [['email', 'string']] }
+ *   { 'by-email': [['email', 'string']] }
  * );
  *
  * // Type-safe key usage
