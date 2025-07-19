@@ -34,7 +34,10 @@ type Constructable<T = {}, TArgs extends ReadonlyArray<unknown> = []> = new (
  * );
  * ```
  */
-export function classResolver<T, TArgs extends ReadonlyArray<unknown> = []>(
+export function classResolver<
+  T = {},
+  TArgs extends ReadonlyArray<unknown> = [],
+>(
   prodClass: Constructable<T, TArgs>,
   testClass: Constructable<T, TArgs>,
 ): Constructable<T, TArgs> {
