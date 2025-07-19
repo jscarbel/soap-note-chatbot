@@ -495,9 +495,23 @@ export class ProdDynamoDbService<
 
   async putItem(item: T, options?: DynamoDbPutOptions): Promise<T | undefined> {
     try {
+      // Add timestamps if not present
+      const itemWithTimestamps = { ...item } as Record<string, unknown>;
+      const now = new Date().toISOString();
+
+      // Set createdAt if not present
+      if ('createdAt' in itemWithTimestamps && !itemWithTimestamps.createdAt) {
+        itemWithTimestamps.createdAt = now;
+      }
+
+      // Always set updatedAt
+      if ('updatedAt' in itemWithTimestamps) {
+        itemWithTimestamps.updatedAt = now;
+      }
+
       const command = new PutCommand({
         TableName: this.tableName,
-        Item: item,
+        Item: itemWithTimestamps,
         ConditionExpression: options?.conditionExpression,
         ExpressionAttributeNames: options?.expressionAttributeNames,
         ExpressionAttributeValues: options?.expressionAttributeValues,
@@ -521,13 +535,23 @@ export class ProdDynamoDbService<
     options: DynamoDbUpdateOptions,
   ): Promise<T | undefined> {
     try {
+      const {
+        updateExpression,
+        expressionAttributeNames,
+        expressionAttributeValues,
+      } = this.addTimestampToUpdateExpression(
+        options.updateExpression,
+        options.expressionAttributeNames,
+        options.expressionAttributeValues,
+      );
+
       const command = new UpdateCommand({
         TableName: this.tableName,
         Key: this.buildKey(key),
-        UpdateExpression: options.updateExpression,
+        UpdateExpression: updateExpression,
         ConditionExpression: options.conditionExpression,
-        ExpressionAttributeNames: options.expressionAttributeNames,
-        ExpressionAttributeValues: options.expressionAttributeValues,
+        ExpressionAttributeNames: expressionAttributeNames,
+        ExpressionAttributeValues: expressionAttributeValues,
         ReturnValues: options.returnValues,
       });
 
@@ -546,7 +570,6 @@ export class ProdDynamoDbService<
       throw this.handleDynamoDbError(error);
     }
   }
-
   async deleteItem(
     key: KeyFromSchema<TKeySchema>,
     options?: DynamoDbDeleteOptions,
@@ -796,6 +819,50 @@ export class ProdDynamoDbService<
       return result.Table?.ItemCount || 0;
     } catch (error) {
       throw this.handleDynamoDbError(error);
+    }
+  }
+
+  private addTimestampToUpdateExpression(
+    updateExpression: string,
+    expressionAttributeNames?: Record<string, string>,
+    expressionAttributeValues?: Record<string, unknown>,
+  ): {
+    updateExpression: string;
+    expressionAttributeNames: Record<string, string>;
+    expressionAttributeValues: Record<string, unknown>;
+  } {
+    const now = new Date().toISOString();
+    const names = { ...expressionAttributeNames };
+    const values = { ...expressionAttributeValues };
+
+    // Add updatedAt to the SET clause
+    names['#updatedAt'] = 'updatedAt';
+    values[':updatedAt'] = now;
+
+    // Check if SET clause exists
+    if (updateExpression.includes('SET ')) {
+      // Append to existing SET clause
+      const updatedExpression = updateExpression.replace(
+        /SET\s+(.+?)(?:\s+(ADD|REMOVE|DELETE)|$)/,
+        (match, setClause, nextOperation) => {
+          const newSetClause = `${setClause.trim()}, #updatedAt = :updatedAt`;
+          return nextOperation
+            ? `SET ${newSetClause} ${nextOperation}`
+            : `SET ${newSetClause}`;
+        },
+      );
+      return {
+        updateExpression: updatedExpression,
+        expressionAttributeNames: names,
+        expressionAttributeValues: values,
+      };
+    } else {
+      // Add SET clause
+      return {
+        updateExpression: `SET #updatedAt = :updatedAt ${updateExpression}`,
+        expressionAttributeNames: names,
+        expressionAttributeValues: values,
+      };
     }
   }
 }

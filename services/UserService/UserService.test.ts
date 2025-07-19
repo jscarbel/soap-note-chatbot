@@ -17,6 +17,8 @@ describe('UserService', () => {
   ): Omit<User, 'id'> => ({
     name: 'John Doe',
     email: createTestEmail('john'),
+    updatedAt: '2025-07-19T22:06:56.172Z',
+    createdAt: '2025-07-19T22:06:56.172Z',
     ...overrides,
   });
 
@@ -62,6 +64,8 @@ describe('UserService', () => {
       const invalidUserData = {
         name: '',
         email: 'invalid-email' as Email,
+        updatedAt: '2025-07-19T22:06:56.172Z',
+        createdAt: '2025-07-19T22:06:56.172Z',
       };
 
       await expect(userService.createUser(invalidUserData)).rejects.toThrow();

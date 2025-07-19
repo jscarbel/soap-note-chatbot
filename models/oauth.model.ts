@@ -1,7 +1,6 @@
 import z from 'zod';
 import { SchemaReturnType } from '../utils/zod';
 import { Email } from './email.model';
-import { UserId } from './user.model';
 
 /**
  * # Oauth 2.0
@@ -28,12 +27,6 @@ export type Oauth = {
    */
   externalId: string;
   /**
-   * The id of the user this corresponds to in the
-   * database. This is how we can connect the oauth
-   * to an individual
-   */
-  userId: UserId;
-  /**
    * The email that is associated with the Oauth.
    * This should be the same as what is on the user
    * model and can also be used to look up the user
@@ -45,6 +38,8 @@ export type Oauth = {
    * login with them
    */
   refreshToken?: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const Oauth = {
@@ -52,9 +47,10 @@ export const Oauth = {
     id: z.int(),
     provider: z.string(),
     externalId: z.string(),
-    userId: UserId.schema,
     email: Email.schema,
     refreshToken: z.string().optional(),
+    createdAt: z.iso.datetime(),
+    updatedAt: z.iso.datetime(),
   }),
   parse: (x: unknown): Oauth => Oauth.schema.parse(x),
 } as const satisfies SchemaReturnType<Oauth>;
