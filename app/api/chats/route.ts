@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { Chat } from '../../../models/chat-model';
+import { Chat } from '../../../models/chat.model';
 import { ChatService } from '../../../services/ChatService';
 
 export async function POST(req: NextRequest) {
